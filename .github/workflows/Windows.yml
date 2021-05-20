@@ -32,7 +32,7 @@ jobs:
       uses: actions\upload-artifact@v2
       with:
         name: consoleapp
-        path: ${{env.DOTNET_ROOT}}/consoleapp
+        path: ${{env.DOTNET_ROOT}}
   package:
     runs-on: windows-latest
     needs: build
