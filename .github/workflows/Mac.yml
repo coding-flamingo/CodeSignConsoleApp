@@ -50,5 +50,5 @@ jobs:
     - name: Upload artifact for deployment job
       uses: actions\upload-artifact@v2
       with:
-        name: ezssh-MacOS
-        path: ${{env.DOTNET_ROOT}}  
+        name: MyConsoleApp-MacOS
+        path: ${{env.DOTNET_ROOT}}/consoleapp
