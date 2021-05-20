@@ -39,11 +39,7 @@ jobs:
     - name: Sign Binaries 
       run: "sh BuildAndReleaseScripts/SignMac.sh \"${{env.DOTNET_ROOT}}/consoleapp/ConsoleApp1\" \"${{env.DOTNET_ROOT}}/consoleapp/*\" \"Developer ID Application: Igal Flegmann (HVPRU6Y9WE)\" \"BuildAndReleaseScripts/entitlements.plist\""
 
-    - name: Upload artifact for deployment job
-      uses: actions\upload-artifact@v2
-      with:
-        name: ezssh-MacOS
-        path: ${{env.DOTNET_ROOT}}  
+    
 
     - name: Zip Binary for Notarizing
       run: zip -rj consoleapp.zip ${{env.DOTNET_ROOT}}/consoleapp/*
@@ -51,3 +47,8 @@ jobs:
     - name: Notarize Binaries 
       run: "sh BuildAndReleaseScripts/Notarize.sh \"igalfsg@gmail.com\" \"${{ secrets.MAC_DEV_PASSWORD }}\" \"group.io.keytos.ezssh\" \"HVPRU6Y9WE\" \"./consoleapp.zip\""
     
+    - name: Upload artifact for deployment job
+      uses: actions\upload-artifact@v2
+      with:
+        name: ezssh-MacOS
+        path: ${{env.DOTNET_ROOT}}  
