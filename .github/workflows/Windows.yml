@@ -43,7 +43,8 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: consoleapp
-    
+    - name: list
+      run: dir
     - name: Sign exe 
       uses: markeytos/code-sign-action@v1.01
       with:
