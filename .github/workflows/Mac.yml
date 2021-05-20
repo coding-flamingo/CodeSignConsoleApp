@@ -1,5 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
 
 name: MAC Signing
 
@@ -37,15 +35,14 @@ jobs:
         p12-password: ${{ secrets.MAC_CERT_PASSWORD }}
     
     - name: Sign Binaries 
-      run: "sh BuildAndReleaseScripts/SignMac.sh \"${{env.DOTNET_ROOT}}/consoleapp/ConsoleApp1\" \"${{env.DOTNET_ROOT}}/consoleapp/*\" \"Developer ID Application: Igal Flegmann (HVPRU6Y9WE)\" \"BuildAndReleaseScripts/entitlements.plist\""
+      run: "sh BuildAndReleaseScripts/SignMac.sh \"${{env.DOTNET_ROOT}}/consoleapp/ConsoleApp1\" \"${{env.DOTNET_ROOT}}/consoleapp/*\" \"Developer ID Application: CodingFlamingo (HVPR40Y9IG)\" \"BuildAndReleaseScripts/entitlements.plist\""
 
-    
 
     - name: Zip Binary for Notarizing
       run: zip -rj consoleapp.zip ${{env.DOTNET_ROOT}}/consoleapp/*
     
     - name: Notarize Binaries 
-      run: "sh BuildAndReleaseScripts/Notarize.sh \"igalfsg@gmail.com\" \"${{ secrets.MAC_DEV_PASSWORD }}\" \"group.io.keytos.ezssh\" \"HVPRU6Y9WE\" \"./consoleapp.zip\""
+      run: "sh BuildAndReleaseScripts/Notarize.sh \"codingflamingo@gmail.com\" \"${{ secrets.MAC_DEV_PASSWORD }}\" \"group.com.codingflamingo\" \"HVPR40Y9IG\" \"./consoleapp.zip\""
     
     - name: Upload artifact for deployment job
       uses: actions\upload-artifact@v2

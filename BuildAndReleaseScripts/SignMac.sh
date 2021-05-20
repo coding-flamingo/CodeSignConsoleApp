@@ -1,8 +1,8 @@
 #!/bin/bash
-## usage sh sign.sh "./ezssh/ezssh/ezssh" "./ezssh/ezssh/*" "Developer ID Application: Keytos LLC (HVPRU6Y9WE)" "./entitlements.plist"
-## RunFile $1 "./ezssh/ezssh/ezssh"
-## Directory $2 ./ezssh/ezssh/*
-## CertName $3 "Developer ID Application: Keytos LLC (HVPRU6Y9WE)" 
+# ## usage sh sign.sh "./consoleapp/ConsoleApp1" "./consoleapp/*" "Developer ID Application: YOURORG (YOURDEVID)" "./entitlements.plist"
+## RunFile $1 "./consoleapp/ConsoleApp1"
+## Directory $2 ./consoleapp/*
+## CertName $3 "Developer ID Application: YOURORG (YOURDEVID)" 
 ## Entitlements $4 ./entitlements.plist 
 
 echo "======== INPUTS ========"
@@ -24,5 +24,3 @@ do
     fi
 done
 
-# xcrun altool --notarize-app --primary-bundle-id "group.io.keytos.ezssh" --username "igalfsg@gmail.com" --password "@keychain:AC_PASSWORD" --asc-provider "HVPRU6Y9WE" --file "./ezssh/ezssh.zip"
-# xcrun altool --notarization-info 28d268b2-d8bc-4ace-9d25-4310bacfdfde -u "igalfsg@gmail.com" --password "@keychain:AC_PASSWORD"

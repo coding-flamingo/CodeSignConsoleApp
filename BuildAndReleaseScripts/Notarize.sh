@@ -1,11 +1,11 @@
 #!/bin/zsh
 
-## usage sh Notarize.sh "igalfsg@gmail.com" "Password1." "group.io.keytos.ezssh" "HVPRU6Y9WE" "./ezssh.zip"
-## dev_account $1 "igalfsg@gmail.com"
+## usage sh Notarize.sh "devemail" "Password1." "group.com.company" "DEVID" "./filename.zip"
+## dev_account $1 "devemail"
 ## dev_Password $2 "Password1."
-## GroupID $3 "group.io.keytos.ezssh" 
-## dev_team $4 HVPRU6Y9WE
-## FileName $5 ./ezssh.zip
+## GroupID $3 "group.com.company" 
+## dev_team $4 DEVID
+## FileName $5 ./filename.zip
 
 
 #xcrun altool --notarize-app --primary-bundle-id "$3" --username $1 --password "$2" --asc-provider "$4" --file "$5"
