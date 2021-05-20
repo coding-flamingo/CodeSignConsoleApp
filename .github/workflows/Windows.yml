@@ -5,8 +5,8 @@ name: Windows Build and Sign
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
+  # push:
+  #   branches: [ main ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -42,9 +42,8 @@ jobs:
     - name: Download artifact from build job
       uses: actions/download-artifact@v2
       with:
-        name: consoleapp
-    - name: list
-      run: dir
+        name: ConsoleApp1/ConsoleApp1.csproj
+        
     - name: Sign exe 
       uses: markeytos/code-sign-action@v1.01
       with:

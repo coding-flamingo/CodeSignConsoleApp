@@ -1,0 +1,53 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: MAC Signing
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.x'
+        include-prerelease: true
+           
+        
+    - name: dotnet publish
+      run: dotnet publish ConsoleApp1/ConsoleApp1.csproj -c Release -r osx-x64 -p:UseAppHost=true -p:PublishSingleFile=true --self-contained true -p:PublishReadyToRunShowWarnings=true  -o ${{env.DOTNET_ROOT}}/consoleapp
+
+    - name: delete .pdb
+      run: rm ${{env.DOTNET_ROOT}}/consoleapp/*.pdb
+
+    - name: chmod 
+      run: chmod +x ${{env.DOTNET_ROOT}}/consoleapp/ConsoleApp1
+
+
+    - name: Add Cert to Keychain
+      uses: apple-actions/import-codesign-certs@v1
+      with: 
+        p12-file-base64: ${{ secrets.MAC_CERT_BASE64 }}
+        p12-password: ${{ secrets.MAC_CERT_PASSWORD }}
+    
+    - name: Sign Binaries 
+      run: "sh BuildAndReleaseScripts/SignMac.sh \"${{env.DOTNET_ROOT}}/ezssh-MacOS/ezssh/ezssh\" \"${{env.DOTNET_ROOT}}/ezssh-MacOS/ezssh/*\" \"Developer ID Application: Igal Flegmann (HVPRU6Y9WE)\" \"BuildAndReleaseScripts/entitlements.plist\""
+
+    - name: Upload artifact for deployment job
+      uses: actions\upload-artifact@v2
+      with:
+        name: ezssh-MacOS
+        path: ${{env.DOTNET_ROOT}}  
+
+    - name: Zip Binary for Notarizing
+      run: zip -rj consoleapp.zip ${{env.DOTNET_ROOT}}/consoleapp/*
+    
+    - name: Notarize Binaries 
+      run: "sh BuildAndReleaseScripts/Notarize.sh \"igalfsg@gmail.com\" \"${{ secrets.MAC_DEV_PASSWORD }}\" \"group.io.keytos.ezssh\" \"HVPRU6Y9WE\" \"./consoleapp.zip\""
+    
