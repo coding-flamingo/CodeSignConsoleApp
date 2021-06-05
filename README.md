@@ -3,7 +3,9 @@ In this repository we create GitHub Actions for codesigning a .NET Console appli
 
 ## Watch on YouTube
 Youtube tutorials are available for this repo.
+
 Mac Signing: https://youtu.be/sfZVA5ICxII
+
 Windows Signing: https://youtu.be/TOTyhFseBYk
 
 ## Blog Post
